@@ -12,6 +12,8 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import RegistrationPortal from "@/components/RegistrationPortal";
+import { Toaster } from "@/components/ui/sonner";
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -643,6 +645,9 @@ function App() {
           </div>
         </div>
       </footer>
+
+      <RegistrationPortal />
+      <Toaster position="bottom-right" richColors />
     </div>
   );
 }

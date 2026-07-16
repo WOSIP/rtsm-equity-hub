@@ -22,6 +22,7 @@ import { Toaster } from "@/components/ui/sonner";
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
+  const [showForm, setShowForm] = useState(false);
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [termsOpen, setTermsOpen] = useState(false);
   const [simulatorData, setSimulatorData] = useState({
@@ -160,9 +161,14 @@ function App() {
               <a href="#pricing" className="hover:text-primary transition-colors">
                 Pricing
               </a>
-              <button className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity">
-                Get Started
-              </button>
+              <a
+                href="https://admin.rtsm.belcashlabs.com/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity inline-block"
+              >
+                Members login
+              </a>
             </div>
 
             <button
@@ -204,7 +210,7 @@ function App() {
                 rel="noopener noreferrer"
                 className="w-full block text-center px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
               >
-                Member login
+                Members login
               </a>
             </div>
           </div>
@@ -243,8 +249,8 @@ function App() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center space-x-2 group">
-                <span>Start Free Trial</span>
+              <button onClick={() => setShowForm(true)} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center space-x-2 group">
+                <span>Click on Apply now and start with the Free version</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
               <button className="px-8 py-4 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors">
@@ -673,7 +679,7 @@ function App() {
         </div>
       </footer>
 
-      <RegistrationPortal />
+      <RegistrationPortal open={showForm} onOpenChange={setShowForm} />
       {showAdmin && <AdminDashboard onClose={() => setShowAdmin(false)} />}
       <PrivacyPolicyModal open={privacyOpen} onOpenChange={setPrivacyOpen} />
       <TermsAndConditionsModal open={termsOpen} onOpenChange={setTermsOpen} />

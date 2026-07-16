@@ -909,8 +909,13 @@ export function AdminDashboard({ onClose }: { onClose: () => void }) {
 }
 
 /* ──────────────────────────────────────────── Main Portal Component */
-export default function RegistrationPortal() {
-  const [showForm, setShowForm] = useState(false);
+export default function RegistrationPortal({ open: showForm, onOpenChange: setShowForm }: { open?: boolean; onOpenChange?: (open: boolean) => void }) {
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isControlled = showForm !== undefined;
+  const isOpen = isControlled ? (showForm ?? false) : internalOpen;
+  const setIsOpen = isControlled
+    ? (v: boolean) => setShowForm?.(v)
+    : setInternalOpen;
 
   return (
     <>
@@ -920,7 +925,7 @@ export default function RegistrationPortal() {
         animate={{ scale: 1 }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        onClick={() => setShowForm(true)}
+        onClick={() => setIsOpen(true)}
         className="fixed bottom-6 right-6 z-40 flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-full shadow-lg hover:shadow-xl transition-shadow"
       >
         <Plus className="w-5 h-5" />
@@ -929,7 +934,7 @@ export default function RegistrationPortal() {
 
 
       {/* Registration Form Dialog */}
-      <Dialog open={showForm} onOpenChange={setShowForm}>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="sm:max-w-2xl bg-card/95 backdrop-blur-xl border-border/50">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-2xl">
@@ -940,7 +945,7 @@ export default function RegistrationPortal() {
               Submit your application to join the RTSM platform for cooperatives and unions.
             </DialogDescription>
           </DialogHeader>
-          <RegistrationForm onClose={() => setShowForm(false)} />
+          <RegistrationForm onClose={() => setIsOpen(false)} />
         </DialogContent>
       </Dialog>
 

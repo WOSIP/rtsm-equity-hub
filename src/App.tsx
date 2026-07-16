@@ -11,12 +11,19 @@ import {
   ArrowRight,
   Menu,
   X,
+  FileText,
+  ShieldCheck,
 } from "lucide-react";
-import RegistrationPortal from "@/components/RegistrationPortal";
+import RegistrationPortal, { AdminDashboard } from "@/components/RegistrationPortal";
+import PrivacyPolicyModal from "@/components/PrivacyPolicyModal";
+import TermsAndConditionsModal from "@/components/TermsAndConditionsModal";
 import { Toaster } from "@/components/ui/sonner";
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showAdmin, setShowAdmin] = useState(false);
+  const [privacyOpen, setPrivacyOpen] = useState(false);
+  const [termsOpen, setTermsOpen] = useState(false);
   const [simulatorData, setSimulatorData] = useState({
     initialShares: 10000,
     monthlyContribution: 500,
@@ -110,7 +117,7 @@ function App() {
         "Priority support",
         "API access",
       ],
-      cta: "Start Free Trial",
+      cta: "Click on Apply now and start with the Free version",
       highlighted: true,
     },
     {
@@ -191,9 +198,14 @@ function App() {
               >
                 Pricing
               </a>
-              <button className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity">
-                Get Started
-              </button>
+              <a
+                href="https://admin.rtsm.belcashlabs.com/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full block text-center px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
+              >
+                Member login
+              </a>
             </div>
           </div>
         )}
@@ -554,7 +566,7 @@ function App() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center space-x-2 group">
-                <span>Start Free Trial</span>
+                <span>Click on Apply now and start with the Free version</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
               <button className="px-8 py-4 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors">
@@ -606,19 +618,28 @@ function App() {
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>
-                  <a href="#" className="hover:text-primary transition-colors">
+                  <a
+                    href="https://wosip.hpass.belcashlabs.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary transition-colors"
+                  >
                     About
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    Blog
                   </a>
                 </li>
                 <li>
                   <a href="#" className="hover:text-primary transition-colors">
                     Contact
                   </a>
+                </li>
+                <li>
+                  <button
+                    onClick={() => setShowAdmin(true)}
+                    className="hover:text-primary transition-colors flex items-center gap-1.5"
+                  >
+                    <ShieldCheck className="w-4 h-4" />
+                    Admin
+                  </button>
                 </li>
               </ul>
             </div>
@@ -627,14 +648,20 @@ function App() {
               <h4 className="font-semibold mb-4">Legal</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>
-                  <a href="#" className="hover:text-primary transition-colors">
+                  <button
+                    onClick={() => setPrivacyOpen(true)}
+                    className="hover:text-primary transition-colors"
+                  >
                     Privacy Policy
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-primary transition-colors">
+                  <button
+                    onClick={() => setTermsOpen(true)}
+                    className="hover:text-primary transition-colors"
+                  >
                     Terms of Service
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
@@ -647,6 +674,9 @@ function App() {
       </footer>
 
       <RegistrationPortal />
+      {showAdmin && <AdminDashboard onClose={() => setShowAdmin(false)} />}
+      <PrivacyPolicyModal open={privacyOpen} onOpenChange={setPrivacyOpen} />
+      <TermsAndConditionsModal open={termsOpen} onOpenChange={setTermsOpen} />
       <Toaster position="bottom-right" richColors />
     </div>
   );

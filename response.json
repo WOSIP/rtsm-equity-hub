@@ -1,0 +1,4 @@
+{
+    "fragmentTitle": "Admin Button Moved to Footer",
+    "SummaryText": "The Admin button has been relocated from the floating action button (FAB) in the RegistrationPortal to the Company section of the footer in App.tsx. It now sits alongside the About and Contact links with a consistent ShieldCheck icon, preserving the same AdminDashboard functionality. The transition is clean — the AdminDashboard component has been exported from RegistrationPortal and imported into App.tsx, with the `showAdmin` state lifted to the App component level. The existing footer layout and aesthetic remain unchanged."
+}

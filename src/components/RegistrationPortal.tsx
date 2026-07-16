@@ -580,7 +580,7 @@ function DetailDrawer({ app, onClose, onAction }: { app: Application; onClose: (
 }
 
 /* ──────────────────────────────────────────── Admin Dashboard */
-function AdminDashboard({ onClose }: { onClose: () => void }) {
+export function AdminDashboard({ onClose }: { onClose: () => void }) {
   const [apps, setApps] = useState<Application[]>([]);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<ApplicationStatus | "all">("all");
@@ -617,7 +617,7 @@ function AdminDashboard({ onClose }: { onClose: () => void }) {
   };
 
   const handleAuth = () => {
-    if (passcode === "admin123") {
+    if (passcode === "demo") {
       setAdminAuth(true);
       toast.success("Welcome, Admin");
     } else {
@@ -911,7 +911,6 @@ function AdminDashboard({ onClose }: { onClose: () => void }) {
 /* ──────────────────────────────────────────── Main Portal Component */
 export default function RegistrationPortal() {
   const [showForm, setShowForm] = useState(false);
-  const [showAdmin, setShowAdmin] = useState(false);
 
   return (
     <>
@@ -928,19 +927,6 @@ export default function RegistrationPortal() {
         <span className="font-semibold text-sm hidden sm:inline">Apply Now</span>
       </motion.button>
 
-      {/* Admin FAB */}
-      <motion.button
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => setShowAdmin(true)}
-        className="fixed bottom-6 right-6 z-40 flex items-center gap-2 px-5 py-3 bg-card border border-border rounded-full shadow-lg hover:shadow-xl transition-shadow"
-        style={{ transform: "translateY(-72px)" }}
-      >
-        <ShieldCheck className="w-5 h-5 text-primary" />
-        <span className="font-semibold text-sm hidden sm:inline">Admin</span>
-      </motion.button>
 
       {/* Registration Form Dialog */}
       <Dialog open={showForm} onOpenChange={setShowForm}>
@@ -958,8 +944,6 @@ export default function RegistrationPortal() {
         </DialogContent>
       </Dialog>
 
-      {/* Admin Dashboard */}
-      {showAdmin && <AdminDashboard onClose={() => setShowAdmin(false)} />}
     </>
   );
 }

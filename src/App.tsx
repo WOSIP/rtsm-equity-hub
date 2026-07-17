@@ -17,6 +17,7 @@ import {
 import RegistrationPortal, { AdminDashboard } from "@/components/RegistrationPortal";
 import PrivacyPolicyModal from "@/components/PrivacyPolicyModal";
 import TermsAndConditionsModal from "@/components/TermsAndConditionsModal";
+import ContactFormModal from "@/components/ContactFormModal";
 import { Toaster } from "@/components/ui/sonner";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [termsOpen, setTermsOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
   const [simulatorData, setSimulatorData] = useState({
     initialShares: 10000,
     monthlyContribution: 500,
@@ -232,7 +234,7 @@ function App() {
           >
             <div className="inline-flex items-center space-x-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
               <CircleCheck className="w-4 h-4 text-primary" />
-              <span className="text-sm">Trusted by 500+ cooperatives</span>
+              <span className="text-sm">Trusted by 50+ cooperatives</span>
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
@@ -253,19 +255,16 @@ function App() {
                 <span>Click on Apply now and start with the Free version</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              <button className="px-8 py-4 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors">
-                Watch Demo
-              </button>
             </div>
 
             <div className="mt-16 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
               <div>
-                <div className="text-3xl font-bold text-primary">500+</div>
+                <div className="text-3xl font-bold text-primary">50+</div>
                 <div className="text-sm text-muted-foreground">Cooperatives</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-primary">$50M+</div>
-                <div className="text-sm text-muted-foreground">Assets Managed</div>
+                <div className="text-3xl font-bold text-primary">$2M+</div>
+                <div className="text-sm text-muted-foreground">Transactions Managed</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-primary">99.9%</div>
@@ -567,7 +566,7 @@ function App() {
               Ready to Transform Your Cooperative?
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
-              Join 500+ cooperatives already using RTSM Mgt to manage their
+              Join 50+ cooperatives already using RTSM Mgt to manage their
               shares more effectively
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -575,7 +574,7 @@ function App() {
                 <span>Click on Apply now and start with the Free version</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              <button className="px-8 py-4 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors">
+              <button onClick={() => setContactOpen(true)} className="px-8 py-4 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors">
                 Schedule Demo
               </button>
             </div>
@@ -634,9 +633,12 @@ function App() {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-primary transition-colors">
+                  <button
+                    onClick={() => setContactOpen(true)}
+                    className="hover:text-primary transition-colors"
+                  >
                     Contact
-                  </a>
+                  </button>
                 </li>
                 <li>
                   <button
@@ -683,6 +685,7 @@ function App() {
       {showAdmin && <AdminDashboard onClose={() => setShowAdmin(false)} />}
       <PrivacyPolicyModal open={privacyOpen} onOpenChange={setPrivacyOpen} />
       <TermsAndConditionsModal open={termsOpen} onOpenChange={setTermsOpen} />
+      <ContactFormModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
       <Toaster position="bottom-right" richColors />
     </div>
   );
